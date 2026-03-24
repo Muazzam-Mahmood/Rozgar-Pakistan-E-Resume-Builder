@@ -1,6 +1,5 @@
-# Database Systems Lab - Lab 08
-## ReactJS Integration, Node.js & CRUD Operations
-### Rozgar Pakistan - E-Resume Builder
+# ReactJS Integration, Node.js & CRUD Operations
+## Rozgar Pakistan - E-Resume Builder
 
 ---
 
