@@ -145,7 +145,7 @@ function ExperienceTable({ data, onDelete, onEdit }) {
 // ADD EXPERIENCE FORM COMPONENT (Task 8)
 // ============================================================================
 
-function AddExperienceForm({ userId, onSave }) {
+function AddExperienceForm({ userId, onSave, existingExperience }) {    //added existing experience prop to check for duplicates
     const [jobTitle, setJobTitle] = useState('');
     const [companyName, setCompanyName] = useState('');
     const [yearsWorked, setYearsWorked] = useState('');
@@ -154,6 +154,16 @@ function AddExperienceForm({ userId, onSave }) {
 
     // handleSave function (Task 8)
     const handleSave = async () => {
+        const duplicate = existingExperience.some(             // Check if the experience with same job title & company already exists
+            (exp) =>
+                exp.JobTitle.toLowerCase() === jobTitle.toLowerCase().trim() &&
+                exp.CompanyName.toLowerCase() === companyName.toLowerCase().trim()
+        );
+
+        if (duplicate) {
+            alert('Experience already exists!');    // alert for already existing experience
+            return;
+        }
         if (!jobTitle || !companyName || !yearsWorked) {
             setMessage('Please fill in all fields');
             return;
@@ -336,6 +346,7 @@ function Dashboard({ user, onLogout }) {
                     <AddExperienceForm 
                         userId={user.UserID}
                         onSave={fetchExperience}
+                        existingExperience={experience}   
                     />
                 </div>
             </main>
