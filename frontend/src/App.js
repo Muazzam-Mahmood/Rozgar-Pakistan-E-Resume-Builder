@@ -348,15 +348,25 @@ function Dashboard({ user, onLogout }) {
 // ============================================================================
 
 function App() {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() => {                
+    const savedUser = localStorage.getItem("userInfo");           //On app load read user info from localStorage
+     if (savedUser) {
+        return JSON.parse(savedUser);
+    } 
+     else {
+        return null;
+    }
+});
 
-    const handleLogin = (userData) => {
+    const handleLogin = (userData) => {                          //On login save user info in localStorage
         setUser(userData);
+        localStorage.setItem("userInfo", JSON.stringify(userData)); 
     };
 
-    const handleLogout = () => {
-        setUser(null);
-    };
+    const handleLogout = () => {                                //On logout remove user info from localStorage
+    setUser(null);
+    localStorage.removeItem("userInfo"); 
+};
 
     return (
         <div className="App">
